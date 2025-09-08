@@ -84,7 +84,7 @@ npm run dev
 - ├── tailwind.config.mjs # Tailwind CSS configuration
 
   ## 🚀 Deployment :->
-vercel :- https://vehiql2.vercel.app
+vercel :- https://ai-car-marketplace-dev.vercel.app
 
 ## 📜 License :->
 
