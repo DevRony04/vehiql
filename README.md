@@ -63,14 +63,24 @@ npm run dev
 <img width="1837" height="886" alt="Screenshot 2025-09-05 120348" src="https://github.com/user-attachments/assets/eb3fff35-8853-45d0-8669-2cfd66bf80ff" />
 
 ## 📂 Folder Structure
-ai-car-marketplace/
-│── prisma/        # Database schema
-│── src/
-│   ├── app/       # Next.js app routes
-│   ├── components/# UI components
-│   ├── lib/       # Utility functions
-│── .env           # Environment variables
-│── package.json  
+- ├── app/ # Next.js application routes & pages
+- ├── components/ # Reusable UI components
+- ├── hooks/ # Custom React hooks
+- ├── lib/ # Utility functions & configurations
+- ├── prisma/ # Prisma schema and database config
+- ├── public/ # Static assets (images, icons, etc.)
+│
+- ├── .gitignore # Git ignore rules
+- ├── README.md # Project documentation
+- ├── components.json # Shadcn UI components registry
+- ├── eslint.config.mjs # ESLint configuration
+- ├── jsconfig.json # JS/TS path aliases
+- ├── middleware.js # Next.js middleware (auth, routing, etc.)
+- ├── next.config.mjs # Next.js configuration
+- ├── package.json # Project dependencies and scripts
+- ├── package-lock.json # Dependency lockfile
+- ├── postcss.config.mjs # PostCSS configuration
+- ├── tailwind.config.mjs # Tailwind CSS configuration 
 
 ## 📜 License
 
