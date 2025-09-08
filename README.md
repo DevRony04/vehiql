@@ -18,13 +18,14 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 ## 🛠️ Tech Stack
 
-| Layer         | Technology |
-|---------------|------------|
-| Frontend      | Next.js 14, Shadcn UI, Tailwind CSS |
-| Backend       | Supabase, Prisma |
-| AI Services   | Gemini API, ArcJet |
-| Auth          | Clerk |
-| Styling       | Tailwind CSS |
+| Layer            | Technology                          |
+|------------------|-------------------------------------|
+| Frontend (UI)    | Next.js 14, Shadcn UI, Tailwind CSS |
+| Backend (API)    | Next.js API Routes, Server Actions  |
+| Database & ORM   | Supabase (Postgres), Prisma         |
+| Authentication   | Clerk                               |
+| AI Integration   | Gemini API, ArcJet                  |
+| Styling          | Tailwind CSS                        |
 
 ---
 
