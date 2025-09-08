@@ -16,7 +16,7 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Tech Stack :->
 
 | Layer            | Technology                          |
 |------------------|-------------------------------------|
@@ -31,15 +31,15 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 ## 🚀 Getting Started
 
-### 1️⃣ Clone the Repository
+### 1️⃣ Clone the Repository :->
 ``bash
 git clone https://github.com/DevRony04/vehiql.git
 cd ai-car-marketplace
 
-## 2️⃣ Install Dependencies
+## 2️⃣ Install Dependencies :->
 npm install
 
-## 3️⃣ Set Up Environment Variables
+## 3️⃣ Set Up Environment Variables :->
 
 Create a .env file in the root directory and add the following:
 
@@ -56,14 +56,14 @@ Create a .env file in the root directory and add the following:
 - GEMINI_API_KEY=
 - ARCJET_KEY=
 
-## 4️⃣ Run the Development Server
+## 4️⃣ Run the Development Server :->
 npm run dev
 
-## 📸 ScreenShots
+## 📸 Screenshots :->
 
 <img width="1837" height="886" alt="Screenshot 2025-09-05 120348" src="https://github.com/user-attachments/assets/eb3fff35-8853-45d0-8669-2cfd66bf80ff" />
 
-## 📂 Folder Structure
+## 📂 Folder Structure :->
 - ├── app/ # Next.js application routes & pages
 - ├── components/ # Reusable UI components
 - ├── hooks/ # Custom React hooks
@@ -83,11 +83,11 @@ npm run dev
 - ├── postcss.config.mjs # PostCSS configuration
 - ├── tailwind.config.mjs # Tailwind CSS configuration 
 
-## 📜 License
+## 📜 License :->
 
 This project is licensed under the MIT License.
 
-## 🙌 Acknowledgments
+## 🙌 Acknowledgments :->
 
 - **Inspired by building a modern Car Marketplace with AI integration**.
 
