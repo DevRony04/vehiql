@@ -81,7 +81,10 @@ npm run dev
 - ├── package.json # Project dependencies and scripts
 - ├── package-lock.json # Dependency lockfile
 - ├── postcss.config.mjs # PostCSS configuration
-- ├── tailwind.config.mjs # Tailwind CSS configuration 
+- ├── tailwind.config.mjs # Tailwind CSS configuration
+
+  ## 🚀 Deployment :->
+vercel :- https://vehiql2.vercel.app
 
 ## 📜 License :->
 
