@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚗 AI Car Marketplace
 
-## Getting Started
+An **AI-powered car marketplace platform** built with **Next.js 14**, **Supabase**, **Prisma**, **Tailwind CSS**, **ArcJet**, **Clerk Authentication**, **Gemini API**, and **Shadcn UI**.  
+This project allows users to browse, list, and explore cars with intelligent AI recommendations, modern authentication, and a clean, responsive interface.
 
-First, run the development server:
+---
 
-```bash
+## ✨ Features
+
+- 🔑 **User Authentication** with Clerk (sign-in, sign-up, onboarding flows)
+- 🚘 **Car Listings** with real-time database powered by Supabase + Prisma
+- 🤖 **AI Recommendations** powered by Gemini API and ArcJet
+- 🎨 **Modern UI** built with Tailwind CSS + Shadcn components
+- 📱 **Responsive Design** that works on all devices
+- ⚡ **Full-Stack Implementation** with scalable architecture
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer         | Technology |
+|---------------|------------|
+| Frontend      | Next.js 14, Shadcn UI, Tailwind CSS |
+| Backend       | Supabase, Prisma |
+| AI Services   | Gemini API, ArcJet |
+| Auth          | Clerk |
+| Styling       | Tailwind CSS |
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+``bash
+git clone https://github.com/your-username/ai-car-marketplace.git
+cd ai-car-marketplace
+
+## 2️⃣ Install Dependencies
+npm install
+
+## 3️⃣ Set Up Environment Variables
+
+Create a .env file in the root directory and add the following:
+
+DATABASE_URL=
+DIRECT_URL=
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+
+GEMINI_API_KEY=
+ARCJET_KEY=
+
+## 4️⃣ Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 ScreenShots
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+<img width="1837" height="886" alt="Screenshot 2025-09-05 120348" src="https://github.com/user-attachments/assets/eb3fff35-8853-45d0-8669-2cfd66bf80ff" />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📂 Folder Structure
+ai-car-marketplace/
+│── prisma/        # Database schema
+│── src/
+│   ├── app/       # Next.js app routes
+│   ├── components/# UI components
+│   ├── lib/       # Utility functions
+│── .env           # Environment variables
+│── package.json  
 
-## Learn More
+## 📜 License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the MIT License.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🙌 Acknowledgments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Inspired by building a modern Car Marketplace with AI integration**.
 
-## Deploy on Vercel
+- **Thanks to the open-source community and frameworks that made this possible**.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
