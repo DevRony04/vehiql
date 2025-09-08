@@ -32,7 +32,7 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 ### 1️⃣ Clone the Repository
 ``bash
-git clone https://github.com/your-username/ai-car-marketplace.git
+git clone https://github.com/DevRony04/vehiql.git
 cd ai-car-marketplace
 
 ## 2️⃣ Install Dependencies
@@ -42,18 +42,18 @@ npm install
 
 Create a .env file in the root directory and add the following:
 
-DATABASE_URL=
-DIRECT_URL=
+- DATABASE_URL=
+- DIRECT_URL=
 
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-CLERK_SECRET_KEY=
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+- CLERK_SECRET_KEY=
+- NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+- NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+- NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
+- NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
 
-GEMINI_API_KEY=
-ARCJET_KEY=
+- GEMINI_API_KEY=
+- ARCJET_KEY=
 
 ## 4️⃣ Run the Development Server
 npm run dev
