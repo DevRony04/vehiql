@@ -21,7 +21,7 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 | Layer            | Technology                          |
 |------------------|-------------------------------------|
-| Frontend (UI)    | Next.js 14, Shadcn UI, Tailwind CSS |
+| Frontend (UI)    | Next.js 15, Shadcn UI, Tailwind CSS |
 | Backend (API)    | Next.js API Routes, Server Actions  |
 | Database & ORM   | Supabase (Postgres), Prisma         |
 | Authentication   | Clerk                               |
