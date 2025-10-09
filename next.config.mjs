@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
    experimental: {
     serverComponentsHmrCache: false, // defaults to true
   },

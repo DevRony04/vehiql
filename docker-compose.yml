@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vehiql-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vehiql
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - vehiql-network
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vehiql-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/vehiql
+      - DIRECT_URL=postgresql://postgres:postgres@postgres:5432/vehiql
+      # Add your other environment variables here
+      # - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_key_here
+      # - CLERK_SECRET_KEY=your_secret_here
+      # - NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+      # - NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+      # - SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+    depends_on:
+      - postgres
+    networks:
+      - vehiql-network
+    volumes:
+      # Mount the app directory for development (optional)
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+
+networks:
+  vehiql-network:
+    driver: bridge

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database for Development
+  postgres:
+    image: postgres:15-alpine
+    container_name: vehiql-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vehiql_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+    networks:
+      - vehiql-dev-network
+
+  # Next.js Application for Development
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: vehiql-app-dev
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/vehiql_dev
+      - DIRECT_URL=postgresql://postgres:postgres@postgres:5432/vehiql_dev
+      # Add your development environment variables here
+    depends_on:
+      - postgres
+    networks:
+      - vehiql-dev-network
+    volumes:
+      # Mount the entire project for hot reloading
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes:
+  postgres_dev_data:
+
+networks:
+  vehiql-dev-network:
+    driver: bridge
