@@ -1,0 +1,119 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    environment: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to staging
+      run: |
+        echo "Deploying to staging environment..."
+        echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+        
+        # Example deployment commands (customize based on your infrastructure)
+        # For Docker Swarm:
+        # docker service update --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} vehiql-app
+        
+        # For Kubernetes:
+        # kubectl set image deployment/vehiql-app app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        # kubectl rollout status deployment/vehiql-app
+        
+        # For Docker Compose:
+        # docker-compose -f docker-compose.staging.yml pull
+        # docker-compose -f docker-compose.staging.yml up -d
+
+    - name: Run database migrations (staging)
+      run: |
+        echo "Running database migrations for staging..."
+        # Add your staging database migration commands here
+        # Example: kubectl exec -it deployment/vehiql-app -- npx prisma migrate deploy
+
+    - name: Health check
+      run: |
+        echo "Performing health check..."
+        # Add health check commands here
+        # Example: curl -f http://staging.vehiql.com/health || exit 1
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to production
+      run: |
+        echo "Deploying to production environment..."
+        echo "Image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+        
+        # Example deployment commands (customize based on your infrastructure)
+        # For Docker Swarm:
+        # docker service update --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} vehiql-app-prod
+        
+        # For Kubernetes:
+        # kubectl set image deployment/vehiql-app app=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        # kubectl rollout status deployment/vehiql-app
+        
+        # For Docker Compose:
+        # docker-compose -f docker-compose.prod.yml pull
+        # docker-compose -f docker-compose.prod.yml up -d
+
+    - name: Run database migrations (production)
+      run: |
+        echo "Running database migrations for production..."
+        # Add your production database migration commands here
+        # Example: kubectl exec -it deployment/vehiql-app -- npx prisma migrate deploy
+
+    - name: Health check
+      run: |
+        echo "Performing health check..."
+        # Add health check commands here
+        # Example: curl -f https://vehiql.com/health || exit 1
+
+    - name: Notify deployment success
+      run: |
+        echo "Production deployment completed successfully!"
+        # Add notification logic here (Slack, Discord, email, etc.)
+
+  rollback:
+    runs-on: ubuntu-latest
+    if: failure()
+    environment: production
+    
+    steps:
+    - name: Rollback deployment
+      run: |
+        echo "Rolling back deployment due to failure..."
+        # Add rollback commands here
+        # Example: kubectl rollout undo deployment/vehiql-app
+        # Example: docker service rollback vehiql-app-prod
+
+    - name: Notify rollback
+      run: |
+        echo "Deployment rolled back due to failure."
+        # Add notification logic here
