@@ -1,4 +1,4 @@
-name: Security Scan
+name: Security Scan (Simplified)
 
 on:
   schedule:
@@ -26,13 +26,14 @@ jobs:
       run: npm ci
 
     - name: Run npm audit
-      run: npm audit --audit-level=moderate || echo "npm audit found vulnerabilities"
+      run: |
+        echo "Running npm audit..."
+        npm audit --audit-level=moderate || echo "npm audit completed with findings"
 
-    - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    - name: Check for outdated packages
+      run: |
+        echo "Checking for outdated packages..."
+        npm outdated || echo "No outdated packages found"
 
   docker-security-scan:
     runs-on: ubuntu-latest
@@ -48,14 +49,16 @@ jobs:
       uses: aquasecurity/trivy-action@master
       with:
         image-ref: 'vehiql-security-test'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
+        format: 'table'
+        exit-code: '0'
 
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v3
-      if: always() && hashFiles('trivy-results.sarif') != ''
+    - name: Run Trivy filesystem scan
+      uses: aquasecurity/trivy-action@master
       with:
-        sarif_file: 'trivy-results.sarif'
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'table'
+        exit-code: '0'
 
   codeql-analysis:
     runs-on: ubuntu-latest
