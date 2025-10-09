@@ -32,33 +32,71 @@ This project allows users to browse, list, and explore cars with intelligent AI 
 
 ## 🚀 Getting Started
 
+### Option 1: Docker Setup (Recommended)
+
 ### 1️⃣ Clone the Repository :->
-``bash
+```bash
 git clone https://github.com/DevRony04/vehiql.git
-cd ai-car-marketplace
+cd vehiql2
+```
 
-## 2️⃣ Install Dependencies :->
-npm install
+### 2️⃣ Set Up Environment Variables :->
 
-## 3️⃣ Set Up Environment Variables :->
+Create a `.env` file in the root directory and add the following:
 
-Create a .env file in the root directory and add the following:
+```env
+# Database
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vehiql"
+DIRECT_URL="postgresql://postgres:postgres@localhost:5432/vehiql"
 
-- DATABASE_URL=
-- DIRECT_URL=
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
+CLERK_SECRET_KEY=your_clerk_secret_key_here
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
-- NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
-- CLERK_SECRET_KEY=
-- NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
-- NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-- NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/onboarding
-- NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
 
-- GEMINI_API_KEY=
-- ARCJET_KEY=
+# Google Generative AI
+GOOGLE_GENERATIVE_AI_API_KEY=your_google_ai_api_key_here
 
-## 4️⃣ Run the Development Server :->
+# Arcjet
+ARCJET_KEY=your_arcjet_key_here
+```
+
+### 3️⃣ Run with Docker :->
+```bash
+# Production setup
+docker-compose up --build
+
+# Development setup with hot reloading
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+### 4️⃣ Run Database Migrations :->
+```bash
+docker-compose exec app npx prisma migrate deploy
+```
+
+### Option 2: Local Development
+
+### 1️⃣ Install Dependencies :->
+```bash
+npm install --legacy-peer-deps
+```
+
+### 2️⃣ Set Up Environment Variables :->
+Same as above
+
+### 3️⃣ Run the Development Server :->
+```bash
 npm run dev
+```
 
 ## 📸 Screenshots :->
 
@@ -84,7 +122,29 @@ npm run dev
 - ├── postcss.config.mjs # PostCSS configuration
 - ├── tailwind.config.mjs # Tailwind CSS configuration
 
-  ## 🚀 Deployment :->
+## 🐳 Docker Setup
+
+This project includes comprehensive Docker support for both development and production environments.
+
+### Available Docker Files:
+- `Dockerfile` - Production-optimized multi-stage build
+- `Dockerfile.dev` - Development build with hot reloading
+- `docker-compose.yml` - Production setup with PostgreSQL
+- `docker-compose.dev.yml` - Development setup with volume mounting
+- `.dockerignore` - Optimized build context
+
+### Quick Start with Docker:
+```bash
+# Production
+docker-compose up --build
+
+# Development
+docker-compose -f docker-compose.dev.yml up --build
+```
+
+For detailed Docker documentation, see [DOCKER.md](./DOCKER.md)
+
+## 🚀 Deployment :->
 vercel :- https://ai-car-marketplace-dev.vercel.app
 
 ## 📜 License :->
