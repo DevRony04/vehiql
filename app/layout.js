@@ -25,8 +25,8 @@ export default function RootLayout({ children }) {
         <Toaster richColors/>
 
         <footer className="bg-blue-200 py-12">
-          <div className="container mx-auto px-4 text-center text-gray-700">
-            <p>Made With 💗 By Rony</p>
+          <div className="container mx-auto px-4 text-center text-gray-800">
+            <p>© 2026 VehiQL - All rights reserved.</p>
           </div>
         </footer>
         
