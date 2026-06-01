@@ -79,7 +79,7 @@ export async function processImageSearch(file) {
 
     // Initialize Gemini API
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash-preview" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.5-flash" });
 
     // Convert image file to base64
     const base64Image = await fileToBase64(file);
