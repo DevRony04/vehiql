@@ -134,7 +134,8 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Run npm audit (Log critical vulnerabilities)
-        run: npm audit --audit-level=critical || echo "Warning: Critical vulnerabilities detected in package dependencies. Please refer to CI_CD_DOCUMENTATION.md for recommended upgrades."
+        run: |
+          npm audit --audit-level=critical || echo "Warning: Critical vulnerabilities detected in package dependencies. Please refer to CI_CD_DOCUMENTATION.md for recommended upgrades."
 
       - name: Run Trivy FS scanner (Fail on CRITICAL vulnerabilities)
         uses: aquasecurity/trivy-action@v0.36.0
