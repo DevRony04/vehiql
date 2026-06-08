@@ -26,18 +26,18 @@ VehiQL is a production-grade, high-performance **AI-powered car marketplace** bu
 
 ```mermaid
 flowchart TD
-    Client[Browser / Client UI] -->|HTTPS Requests| ArcJet{ArcJet Shield & WAF}
-    ArcJet -->|Allowed| Clerk[Clerk Auth & Session Gate]
-    Clerk -->|Authorized Request| NextJS[Next.js App Server]
+    Client["Browser / Client UI"] -->|"HTTPS Requests"| ArcJet{"ArcJet Shield & WAF"}
+    ArcJet -->|"Allowed"| Clerk["Clerk Auth & Session Gate"]
+    Clerk -->|"Authorized Requests"| App["Next.js App Router (Server Actions)"]
     
-    subgraph NextJS Backend [Next.js Standalone Runner]
-        App[App Router Server Components] -->|Server Actions| Lib[Data Access Layer]
-        Lib -->|ORM Client| Prisma[Prisma ORM Client]
-        App -->|Analyze Image| Gemini[Google Gemini 2.5 API]
+    subgraph NextJS ["Next.js Standalone Backend Server"]
+        App --> Lib["Data Access Layer"]
+        Lib --> Prisma["Prisma ORM Client"]
+        App --> Gemini["Google Gemini 2.5 API"]
     end
     
-    Prisma -->|PgBouncer Pool / Port 6543| Supabase[Supabase PostgreSQL DB]
-    Lib -->|Image Uploads| Storage[Supabase Storage Buckets]
+    Prisma -->|"PgBouncer (Port 6543)"| Supabase["Supabase PostgreSQL DB"]
+    Lib -->|"Image Uploads"| Storage["Supabase Storage Buckets"]
 ```
 
 | Layer | Technologies Used |
