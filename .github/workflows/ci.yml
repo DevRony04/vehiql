@@ -11,6 +11,24 @@ on:
 permissions:
   contents: read
 
+env:
+  # Sandboxed Environment Variables for Validate and Build steps
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
+  DIRECT_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_mockkey12345
+  CLERK_SECRET_KEY: sk_test_mocksecret12345
+  NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+  NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
+  NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
+  NEXT_PUBLIC_SUPABASE_URL: https://mockproject.supabase.co
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mockanonkey
+  SUPABASE_SERVICE_ROLE_KEY: mockservicerolekey
+  GEMINI_API_KEY: mockgeminiapikey
+  ARCJET_KEY: ajkey_mockkey12345
+  NEXTAUTH_SECRET: mocknextauthsecret12345
+  NEXTAUTH_URL: http://localhost:3000
+
 jobs:
   lint-and-validate:
     name: Lint & Validate Prisma Schema
@@ -48,23 +66,6 @@ jobs:
     name: Next.js Production Build Verification
     runs-on: ubuntu-latest
     needs: lint-and-validate
-    env:
-      # Sandboxed Environment Variables for Build Verification
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
-      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
-      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_mockkey12345
-      CLERK_SECRET_KEY: sk_test_mocksecret12345
-      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
-      NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: /
-      NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: /
-      NEXT_PUBLIC_SUPABASE_URL: https://mockproject.supabase.co
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mockanonkey
-      SUPABASE_SERVICE_ROLE_KEY: mockservicerolekey
-      GEMINI_API_KEY: mockgeminiapikey
-      ARCJET_KEY: ajkey_mockkey12345
-      NEXTAUTH_SECRET: mocknextauthsecret12345
-      NEXTAUTH_URL: http://localhost:3000
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -105,7 +106,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker Image (Dry Run)
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile
