@@ -9,13 +9,23 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production --legacy-peer-deps
+RUN npm ci --legacy-peer-deps --ignore-scripts
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# Set sandboxed environment variables for build verification
+ENV DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vehiql_mock"
+ENV DIRECT_URL="postgresql://postgres:postgres@localhost:5432/vehiql_mock"
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_mock"
+ENV CLERK_SECRET_KEY="sk_test_mock"
+ENV NEXT_PUBLIC_SUPABASE_URL="https://mockproject.supabase.co"
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mock"
+ENV GEMINI_API_KEY="mock"
+ENV ARCJET_KEY="ajkey_mock"
 
 # Generate Prisma client
 RUN npx prisma generate
