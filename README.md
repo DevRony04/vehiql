@@ -1,5 +1,8 @@
 # 🚗 AI Car Marketplace
 
+[![Continuous Integration](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml)
+[![Continuous Delivery](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml)
+
 An **AI-powered car marketplace platform** built with **Next.js 15**, **Supabase**, **Prisma**, **Tailwind CSS**, **ArcJet**, **Clerk Authentication**, **Gemini API**, and **Shadcn UI**.
 
 This project allows users to browse, list, and explore cars with intelligent AI recommendations, modern authentication, and a clean, responsive interface.
