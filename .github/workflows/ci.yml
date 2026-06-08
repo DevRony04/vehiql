@@ -15,7 +15,7 @@ env:
   # Sandboxed Environment Variables for Validate and Build steps
   DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
   DIRECT_URL: postgresql://postgres:postgres@localhost:5432/vehiql_mock
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_mockkey12345
+  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_a2luZC1idWZmYWxvLTgxLmNsZXJrLmFjY291bnRzLmRldiQ
   CLERK_SECRET_KEY: sk_test_mocksecret12345
   NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
   NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
@@ -141,7 +141,7 @@ jobs:
         run: npm audit --audit-level=high
 
       - name: Run Trivy FS vulnerability scanner
-        uses: aquasecurity/trivy-action@v0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
           scan-ref: .

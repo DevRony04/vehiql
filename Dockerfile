@@ -20,7 +20,7 @@ COPY . .
 # Set sandboxed environment variables for build verification
 ENV DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vehiql_mock"
 ENV DIRECT_URL="postgresql://postgres:postgres@localhost:5432/vehiql_mock"
-ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_mock"
+ENV NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="pk_test_a2luZC1idWZmYWxvLTgxLmNsZXJrLmFjY291bnRzLmRldiQ"
 ENV CLERK_SECRET_KEY="sk_test_mock"
 ENV NEXT_PUBLIC_SUPABASE_URL="https://mockproject.supabase.co"
 ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mock"
