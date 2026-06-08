@@ -1,162 +1,185 @@
-# 🚗 AI Car Marketplace
+# 🚗 VehiQL — AI-Powered Car Marketplace Platform
 
 [![Continuous Integration](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml)
 [![Continuous Delivery](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D%2018.0.0-green.svg)](package.json)
+[![Next.js Version](https://img.shields.io/badge/next.js-v15.3.8-black.svg)](package.json)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/DevRony04/vehiql/pulls)
 
-An **AI-powered car marketplace platform** built with **Next.js 15**, **Supabase**, **Prisma**, **Tailwind CSS**, **ArcJet**, **Clerk Authentication**, **Gemini API**, and **Shadcn UI**.
-
-This project allows users to browse, list, and explore cars with intelligent AI recommendations, modern authentication, and a clean, responsive interface.
-
----
-
-## ✨ Features
-
-- 🔑 **User Authentication** with Clerk (sign-in, sign-up, onboarding flows)
-- 🚘 **Car Listings** with real-time database powered by Supabase + Prisma
-- 🤖 **AI Recommendations** powered by Gemini API and ArcJet
-- 🎨 **Modern UI** built with Tailwind CSS + Shadcn components
-- 📱 **Responsive Design** that works on all devices
-- ⚡ **Full-Stack Implementation** with scalable architecture
+VehiQL is a production-grade, high-performance **AI-powered car marketplace** built on top of **Next.js 15 (App Router)**, **Supabase**, **Prisma**, and **Tailwind CSS v4**. The platform features intelligent automated car detail extraction via **Google Gemini AI**, enterprise-grade security and bot defense via **ArcJet WAF**, and modern session management via **Clerk Authentication**.
 
 ---
 
-## 🛠️ Tech Stack :->
+## 🌟 Key Features
 
-| Layer            | Technology                          |
-|------------------|-------------------------------------|
-| Frontend (UI)    | Next.js 15, Shadcn UI, Tailwind CSS |
-| Backend (API)    | Next.js API Routes, Server Actions  |
-| Database & ORM   | Supabase (Postgres), Prisma         |
-| Authentication   | Clerk                               |
-| AI Integration   | Gemini API, ArcJet                  |
-| Styling          | Tailwind CSS                        |
+*   🔑 **Enterprise Authentication & RBAC:** Complete tenant onboardings and secure admin panel routes managed by Clerk.
+*   🤖 **AI Car Details Extractor:** Automated spec-sheet generation (make, model, year, transmission, fuel type, color) from car photos using `gemini-2.5-flash`.
+*   🛡️ **Advanced Web Application Firewall (WAF):** Integrated rate-limiting, SQL/command injection shield protection, and search engine bot-detection using ArcJet.
+*   💾 **Hybrid DB Architecture:** PostgreSQL hosted on Supabase and managed using Prisma ORM with connection pooling via PgBouncer.
+*   ⚡ **Standalone Server Bundle:** Next.js build-optimized stand-alone server tracing (`output: 'standalone'`), minimizing Docker production images to less than 150MB.
+*   🔄 **CI/CD with Automated Rollbacks:** Automated testing, Prisma validation, dependency auditing, Trivy security filesystem checks, and zero-downtime remote deployment with automatic health check rollbacks.
 
 ---
 
-## 🚀 Getting Started
+## 🏗️ System Architecture & Tech Stack
 
-### Option 1: Docker Setup (Recommended)
-
-### 1️⃣ Clone the Repository :->
-```bash
-git clone https://github.com/DevRony04/vehiql.git
-cd vehiql2
+```mermaid
+flowchart TD
+    Client[Browser / Client UI] -->|HTTPS Requests| ArcJet{ArcJet Shield & WAF}
+    ArcJet -->|Allowed| Clerk[Clerk Auth & Session Gate]
+    Clerk -->|Authorized Request| NextJS[Next.js App Server]
+    
+    subgraph NextJS Backend [Next.js Standalone Runner]
+        App[App Router Server Components] -->|Server Actions| Lib[Data Access Layer]
+        Lib -->|ORM Client| Prisma[Prisma ORM Client]
+        App -->|Analyze Image| Gemini[Google Gemini 2.5 API]
+    end
+    
+    Prisma -->|PgBouncer Pool / Port 6543| Supabase[Supabase PostgreSQL DB]
+    Lib -->|Image Uploads| Storage[Supabase Storage Buckets]
 ```
 
-### 2️⃣ Set Up Environment Variables :->
+| Layer | Technologies Used |
+| :--- | :--- |
+| **Frontend & Routing** | Next.js 15.3.8 (App Router), React 19, Tailwind CSS v4, Radix UI, Shadcn UI |
+| **Backend Framework** | Next.js Server Actions, Next.js Middleware |
+| **Database & ORM** | PostgreSQL (hosted on Supabase), Prisma ORM Client |
+| **Security & Firewall** | ArcJet (Shield protection, Bot Detection, Token Bucket Rate Limiting) |
+| **Artificial Intelligence** | `@google/generative-ai` (`gemini-2.5-flash`) |
+| **Authentication** | Clerk (`@clerk/nextjs` Server SDK) |
 
-Create a `.env` file in the root directory and add the following:
+---
 
+## 🚦 Getting Started
+
+### Prerequisites
+*   Node.js v18+ installed locally (or Docker Engine + Docker Compose).
+*   A Clerk account (API keys).
+*   A Supabase account (Postgres URL & Storage Buckets).
+*   A Google AI Studio account (Gemini API key).
+
+### 1. Set Up Environment Variables
+Create a `.env` file in the root directory:
 ```env
-# Database
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vehiql"
-DIRECT_URL="postgresql://postgres:postgres@localhost:5432/vehiql"
+# Database Connections
+DATABASE_URL="postgresql://postgres:[password]@aws-0-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true"
+DIRECT_URL="postgresql://postgres:[password]@aws-0-ap-south-1.pooler.supabase.com:5432/postgres"
 
-# Clerk Authentication
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-CLERK_SECRET_KEY=your_clerk_secret_key_here
+# Clerk Authentication API Keys
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
 NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
 NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url_here
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key_here
+# Supabase Storage Configuration
+NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...
 
-# Google Generative AI
-GOOGLE_GENERATIVE_AI_API_KEY=your_google_ai_api_key_here
+# Google AI Platform (Gemini API)
+GEMINI_API_KEY=AIzaSy...
 
-# Arcjet
-ARCJET_KEY=your_arcjet_key_here
+# Arcjet Security Firewall Key
+ARCJET_KEY=ajkey_...
+
+# Next Auth Config
+NEXTAUTH_SECRET=your-random-session-hash
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-### 3️⃣ Run with Docker :->
-```bash
-# Production setup
-docker-compose up --build
+### 2. Option A: Local Development Setup
+1. Install dependencies:
+   ```bash
+   npm install --legacy-peer-deps
+   ```
+2. Run Prisma client generation:
+   ```bash
+   npx prisma generate
+   ```
+3. Run migrations locally (if applicable):
+   ```bash
+   npx prisma migrate dev
+   ```
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
+5. Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-# Development setup with hot reloading
-docker-compose -f docker-compose.dev.yml up --build
+### 3. Option B: Running with Docker (Recommended)
+Docker setup automatically provisions environment variables and builds matching multi-stage Node environments.
+
+*   **Production Compose:**
+    ```bash
+    docker-compose up --build
+    ```
+*   **Development Compose (with Hot Reloading):**
+    ```bash
+    docker-compose -f docker-compose.dev.yml up --build
+    ```
+*   **Run migrations inside the running container:**
+    ```bash
+    docker-compose exec app npx prisma migrate deploy
+    ```
+
+---
+
+## 📂 Directory Layout
+
+```
+├── .github/workflows/         # CI/CD pipeline automation (ci.yml, cd.yml)
+├── actions/                   # Next.js Server Actions (Home, Cars, Admin, Settings)
+├── app/                       # Next.js App Router (routes, layouts, page views)
+│   ├── (admin)/               # Secured admin dashboard routes
+│   ├── (auth)/                # Sign-in/Sign-up pages (Clerk integrated)
+│   └── (main)/                # Public marketplace paths (cars, test-drive, saved-cars)
+├── components/                # Reusable UI components (buttons, headers, form controls)
+├── hooks/                     # Custom React hooks
+├── lib/                       # Third-party configurations & utilities
+│   ├── generated/             # Generated Prisma client classes (lib/generated/prisma)
+│   ├── arcjet.js              # Arcjet firewall configuration
+│   ├── prisma.js              # Prisma Client single instance resolver
+│   └── supabase.js            # Supabase Storage client
+├── prisma/                    # Schema models and migration history
+├── public/                    # Static image, icon, and logo assets
+├── scripts/                   # Production CD shell scripts (deploy.sh)
+├── Dockerfile                 # Standalone production container recipe
+├── Dockerfile.dev             # Local hot-reloading development container recipe
+├── docker-compose.yml         # Production multi-container compose configuration
+├── docker-compose.prod.yml    # Registry image pulling compose configuration
+└── eslint.config.mjs          # Linting settings
 ```
 
-### 4️⃣ Run Database Migrations :->
-```bash
-docker-compose exec app npx prisma migrate deploy
-```
+---
 
-### Option 2: Local Development
+## 🔒 Security Operations & Bot Defense
 
-### 1️⃣ Install Dependencies :->
-```bash
-npm install --legacy-peer-deps
-```
+The platform integrates ArcJet at the Next.js Middleware layer. This blocks malicious requests before they consume application resources:
+*   **Shield Protection:** Inspects incoming headers, queries, and bodies, immediately blocking common attacks (SQL Injection, XSS, Path Traversal).
+*   **Bot Detection:** Identifies web spiders, scrapers, and bot agents. Only search engine indices (Google, Bing) are whitelisted.
+*   **Rate Limiting:** Protects the Server Action APIs against brute-force spam requests (e.g. rate-limiting car creation forms to 10 submissions/hour per IP).
 
-### 2️⃣ Set Up Environment Variables :->
-Same as above
+---
 
-### 3️⃣ Run the Development Server :->
-```bash
-npm run dev
-```
+## 🔄 CI/CD & Automated Delivery
 
-## 📸 Screenshots :->
+This repository contains fully automated pipelines configured in `.github/workflows/`:
+1.  **Continuous Integration (`ci.yml`):**
+    *   Dependency caching and lint checks (`npm run lint`).
+    *   Prisma schema integrity checks (`npx prisma validate`).
+    *   Production Next.js standalone build verification.
+    *   Trivy FS security vulnerabilities scan (exits on `CRITICAL` issues).
+2.  **Continuous Delivery (`cd.yml`):**
+    *   Builds and pushes a Docker image to GitHub Container Registry (GHCR).
+    *   Deploys to production VPS using SSH, restarts only affected services (`docker compose up -d app`).
+    *   Runs database migrations and verifies service health.
+    *   **Auto-Rollback:** Automatically reverts to the previous stable container version if the post-deployment HTTP health check fails.
 
-<img width="1837" height="886" alt="Screenshot 2025-09-05 120348" src="https://github.com/user-attachments/assets/eb3fff35-8853-45d0-8669-2cfd66bf80ff" />
+For more details on setting up pipeline secrets and branch protection, refer to the [CI/CD Documentation Guide](./CI_CD_DOCUMENTATION.md).
 
-## 📂 Folder Structure :->
-- ├── app/ # Next.js application routes & pages
-- ├── components/ # Reusable UI components
-- ├── hooks/ # Custom React hooks
-- ├── lib/ # Utility functions & configurations
-- ├── prisma/ # Prisma schema and database config
-- ├── public/ # Static assets (images, icons, etc.)
-│
-- ├── .gitignore # Git ignore rules
-- ├── README.md # Project documentation
-- ├── components.json # Shadcn UI components registry
-- ├── eslint.config.mjs # ESLint configuration
-- ├── jsconfig.json # JS/TS path aliases
-- ├── middleware.js # Next.js middleware (auth, routing, etc.)
-- ├── next.config.mjs # Next.js configuration
-- ├── package.json # Project dependencies and scripts
-- ├── package-lock.json # Dependency lockfile
-- ├── postcss.config.mjs # PostCSS configuration
-- ├── tailwind.config.mjs # Tailwind CSS configuration
+---
 
-## 🐳 Docker Setup
+## 🤝 Contribution & License
 
-This project includes comprehensive Docker support for both development and production environments.
-
-### Available Docker Files:
-- `Dockerfile` - Production-optimized multi-stage build
-- `Dockerfile.dev` - Development build with hot reloading
-- `docker-compose.yml` - Production setup with PostgreSQL
-- `docker-compose.dev.yml` - Development setup with volume mounting
-- `.dockerignore` - Optimized build context
-
-### Quick Start with Docker:
-```bash
-# Production
-docker-compose up --build
-
-# Development
-docker-compose -f docker-compose.dev.yml up --build
-```
-
-For detailed Docker documentation, see [DOCKER.md](./DOCKER.md)
-
-## 🚀 Deployment :->
-vercel :- https://ai-car-marketplace-dev.vercel.app
-
-## 📜 License :->
-
-This project is licensed under the MIT License.
-
-## 🙌 Acknowledgments :->
-
-- **Inspired by building a modern Car Marketplace with AI integration**.
-
-- **Thanks to the open-source community and frameworks that made this possible**.
-
+This project is open-source under the terms of the [MIT License](./LICENSE). Contributions are welcome; please submit a Pull Request or open an issue on the repository.
