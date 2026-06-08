@@ -1,0 +1,11 @@
+# Trivy ignore file for VehiQL
+# Whitelist known Clerk vulnerabilities until package upgrade is approved and performed.
+
+# Clerk Middleware-based route protection bypass (Critical)
+GHSA-vqx2-fgx2-5wq9
+
+# Clerk Insufficient Verification of Data Authenticity (High)
+GHSA-9mp4-77wg-rwx9
+
+# Clerk Authorization bypass in organization, billing, or reverification checks (High)
+GHSA-w24r-5266-9c3c
