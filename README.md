@@ -1,4 +1,4 @@
-# 🚗 VehiQL — AI-Powered Car Marketplace Platform
+# 🚗  VehiQL — AI-Native Vehicle Marketplace
 
 [![Continuous Integration](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/ci.yml)
 [![Continuous Delivery](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml/badge.svg)](https://github.com/DevRony04/vehiql2/actions/workflows/cd.yml)
@@ -7,7 +7,7 @@
 [![Next.js Version](https://img.shields.io/badge/next.js-v15.3.8-black.svg)](package.json)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/DevRony04/vehiql/pulls)
 
-VehiQL is a production-grade, high-performance **AI-powered car marketplace** built on top of **Next.js 15 (App Router)**, **Supabase**, **Prisma**, and **Tailwind CSS v4**. The platform features intelligent automated car detail extraction via **Google Gemini AI**, enterprise-grade security and bot defense via **ArcJet WAF**, and modern session management via **Clerk Authentication**.
+VehiQL is a production-grade, high-performance **AI-Native Vehicle Marketplace** built on top of **Next.js 15 (App Router)**, **Supabase**, **Prisma**, and **Tailwind CSS v4**. The platform features intelligent automated car detail extraction via **Google Gemini AI**, enterprise-grade security and bot defense via **ArcJet WAF**, and modern session management via **Clerk Authentication**.
 
 ---
 
